@@ -10,7 +10,7 @@ import pickle
 import os
 zfile = zipfile.ZipFile('/media/data1/UDI-twitter/UDI-TwitterCrawl-Aug2012-Tweets.zip','r')
 #fff=set(os.listdir('/media/data1/UDI-twitter/error/'))
-for ufile in zfile.namelist()[:30000]:
+for ufile in zfile.namelist()[60000:90000]:
     procfiles=set(os.listdir('/media/data1/UDI-twitter/sentiment/'))
     errorfiles=set(os.listdir('/media/data1/UDI-twitter/error/'))
     procfiles=procfiles.union(errorfiles)
