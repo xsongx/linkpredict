@@ -8,11 +8,11 @@ import zipfile
 import sentimentstrength
 import pickle
 import os
-zfile = zipfile.ZipFile('/media/data1/UDI-twitter/UDI-TwitterCrawl-Aug2012-Tweets.zip','r')
+zfile = zipfile.ZipFile('/media/work/codingspace/UDIdata/UDI-TwitterCrawl-Aug2012-Tweets.zip','r')
 #fff=set(os.listdir('/media/data1/UDI-twitter/error/'))
-for ufile in zfile.namelist()[60000:90000]:
-    procfiles=set(os.listdir('/media/data1/UDI-twitter/sentiment/'))
-    errorfiles=set(os.listdir('/media/data1/UDI-twitter/error/'))
+for ufile in zfile.namelist()[130000:]:
+    procfiles=set(os.listdir('/media/work/codingspace/UDIdata/sentiment/'))
+    errorfiles=set(os.listdir('/media/work/codingspace/UDIdata/error/'))
     procfiles=procfiles.union(errorfiles)
     i=len(procfiles)
     if ufile.split('/')[-1] not in procfiles:
@@ -53,7 +53,7 @@ Type:status''') if len(tweet)>1]
                     twdict['Hashtags']=twhashtag
                     twdict['Sentiment']=sentiment
                     usertweets.append(twdict)
-                fuser=open('/media/data1/UDI-twitter/sentiment/'+ufile.split('/')[-1],'wb')
+                fuser=open('/media/work/codingspace/UDIdata/sentiment/'+ufile.split('/')[-1],'wb')
                 pickle.dump(usertweets,fuser)
     #            userjson=json.dumps(usertweets,indent=4)
     #            json.dump(userjson,fuser)
@@ -61,7 +61,7 @@ Type:status''') if len(tweet)>1]
                 i=i+1
                 print str(i)+':'+ufile+':'+str(len(usertweets))
             except:
-                ferror=open('/media/data1/UDI-twitter/error/'+str(ufile.split('/')[-1]),'w')
+                ferror=open('/media/work/codingspace/UDIdata/error/'+str(ufile.split('/')[-1]),'w')
                 ferror.write(utweet)
                 ferror.close()
                 print 'error:'+ufile
