@@ -51,17 +51,19 @@ def tweetscorpora(userfiles,dictionary):
     twcorpora=MyCorpus()
     return twcorpora
 def tweetslda(twcorpora,dictionary,top):
-    twtopics = models.ldamodel.LdaModel(corpus=twcorpora, id2word=dictionary, num_topics=top, update_every=0, passes=50)
+    twtopics = models.ldamodel.LdaModel(corpus=twcorpora, id2word=dictionary, num_topics=top, update_every=0, passes=20)
     savefile='topics_'+str(top)    
     twtopics.save(topic_models_path+savefile)
     return twtopics
-#tweets_dictionary=dictionaryload(topic_models_path+'alltweets.dict')
-tweets_dictionary=dictionarytweets(user_list)
-tweets_corpora=tweetscorpora(user_list,tweets_dictionary)
-tfidf_corpora=models.TfidfModel(tweets_corpora)
-tfidf_corpora.save(topic_models_path+'tfidf.mm')
+tweets_dictionary=dictionaryload(topic_models_path+'alltweets.dict')
+#tweets_dictionary=dictionarytweets(user_list)
+#tweets_corpora=tweetscorpora(user_list,tweets_dictionary)
+#tfidf_corpora=models.TfidfModel(tweets_corpora)
+#tfidf_corpora.save(topic_models_path+'tfidf.mm')
 #corpora.MmCorpus.serialize(topic_models_path+'twcorpora.mm',tweets_corpora)
-#topnum=set([50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200])
-#for top in topnum:
-#    topics=tweetslda(tfidf_corpora,tweets_dictionary)
+tweets_corpora=corpora.MmCorpus(topic_models_path+'twcorpora.mm')
+#tfidf_corpora=models.TfidfModel.load(topic_models_path+'tfidf.mm')
+topnum=[i*10 for i in range(50) if i>4]
+for top in topnum:
+    topics=tweetslda(tweets_corpora,tweets_dictionary,top)
 
